@@ -4,7 +4,6 @@ A retrieval-augmented generation (RAG) app that answers renting questions **only
 
 > General information, not legal advice. Rules differ across the UK nations and change over time; every answer links to the page it came from, with its last-updated date.
 
-**Live demo:** _add your URL_  |  **Eval results:** see [Results](#results)
 
 ## How it works
 
