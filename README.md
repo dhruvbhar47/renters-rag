@@ -132,6 +132,6 @@ python -c "from app.config import settings; print(settings.chat_model)"
 
 uvicorn app.main:app --reload
 
- # Terminal 2
+ #Terminal 2
 cd ~/Downloads/renters-rag/frontend
 npm run dev 
