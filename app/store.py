@@ -82,7 +82,7 @@ class PgStore:
         return self.conn.execute(
             "SELECT id, url, title, content, updated_at, ts_rank_cd(tsv, tsq) AS keyword_score "
             "FROM chunks, to_tsquery('english', %s) tsq WHERE tsv @@ tsq "
-            "ORDER BY keyword_score DESC LIMIT %s",
+            "ORDER BY keyword_score DESC, url, chunk_idx LIMIT %s",
             (q, k),
         ).fetchall()
 

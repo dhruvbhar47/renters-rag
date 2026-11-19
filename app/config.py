@@ -37,6 +37,8 @@ class Settings:
     # Cosine similarity of the best chunk below this => refuse without calling the LLM.
     # This is a starting point: tune it with the eval set.
     min_vector_score: float = float(os.getenv("MIN_VECTOR_SCORE", "0.25"))
+        # Weight of keyword results when fusing with vector results (1.0 = equal, lower = trust vectors more).
+    keyword_weight: float = float(os.getenv("KEYWORD_WEIGHT", "1.0"))
     use_reranker: bool = _bool("USE_RERANKER", False)
     reranker_model: str = os.getenv("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
 

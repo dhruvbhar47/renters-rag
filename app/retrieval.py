@@ -1,6 +1,7 @@
 """Hybrid retrieval: vector + keyword search fused with Reciprocal Rank Fusion (RRF)."""
 from dataclasses import dataclass
 from typing import Callable, Protocol
+from .config import settings
 
 
 class SearchStore(Protocol):
@@ -14,13 +15,18 @@ class Retrieval:
     best_vector_score: float  # cosine similarity of the closest chunk; used to refuse off-topic questions
 
 
-def reciprocal_rank_fusion(rankings: list[list[int]], k: int = 60) -> dict[int, float]:
-    """Combine several ranked id lists. Each list adds 1 / (k + rank) to an id's score."""
+
+def reciprocal_rank_fusion(
+    rankings: list[list[int]], k: int = 60, weights: list[float] | None = None
+) -> dict[int, float]:
+    """Combine several ranked id lists. Each list adds weight / (k + rank) to an id's score."""
+    weights = weights or [1.0] * len(rankings)
     scores: dict[int, float] = {}
-    for ranking in rankings:
+    for ranking, weight in zip(rankings, weights):
         for rank, doc_id in enumerate(ranking, start=1):
-            scores[doc_id] = scores.get(doc_id, 0.0) + 1.0 / (k + rank)
+            scores[doc_id] = scores.get(doc_id, 0.0) + weight / (k + rank)
     return scores
+
 
 
 def retrieve(
@@ -46,7 +52,10 @@ def retrieve(
         by_id[row["id"]] = {**by_id.get(row["id"], {}), **row}
 
     if mode == "hybrid":
-        fused = reciprocal_rank_fusion([[r["id"] for r in vec_rows], [r["id"] for r in kw_rows]])
+        fused = reciprocal_rank_fusion(
+            [[r["id"] for r in vec_rows], [r["id"] for r in kw_rows]],
+            weights=[1.0, settings.keyword_weight],
+        )
         ordered_ids = sorted(fused, key=fused.get, reverse=True)
     elif mode == "vector":
         ordered_ids = [r["id"] for r in vec_rows]

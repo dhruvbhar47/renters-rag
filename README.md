@@ -89,22 +89,25 @@ python -m eval.run_eval --generate   # + refusal accuracy and LLM-judged faithfu
 
 ### Results
 
-_Fill this in with your real numbers. Don't publish figures you haven't measured._
+Measured on 42 questions (30 answerable, 12 off-topic) over 29 gov.uk pages (63 chunks of about 200 words). hit@5 means a correct page appears in the top 5 retrieved chunks. MRR is the average of 1 / rank of the first correct page.
 
 | Setup | hit@5 | MRR | Notes |
 |---|---|---|---|
-| vector only | | | |
-| keyword only | | | |
-| hybrid (RRF) | | | |
-| hybrid + rerank | | | |
+| vector only | 1.00 (30/30) | 0.857 | Best on this question set |
+| keyword only | 0.77 (23/30) | 0.463 | Struggles when questions use everyday wording |
+| hybrid (RRF, equal weights) | 0.93 (28/30) | 0.826 | Missed 2 questions that vector search found |
+
+Hybrid search did not beat vector-only search on this data. The corpus is small and the questions are informal, so exact-word matching adds noise to the ranking. Hybrid may still help on a larger corpus or on queries with exact terms, but I haven't tested that.
 
 | Chunk size (words) | hit@5 (hybrid) |
 |---|---|
-| 120 | |
-| 200 | |
-| 350 | |
+| 120 | not run yet |
+| 200 | 0.93 |
+| 350 | not run yet |
 
-Generation (hybrid, N questions): answer-or-refuse correct ___ %, faithfulness ___ %.
+Generation (refusal accuracy and faithfulness): not measured yet.
+
+**Limits of this evaluation:** 30 answerable questions is a small sample, where one question moves hit@5 by 3.3 points. Hits are counted at page level, not passage level. The questions were drafted with AI assistance and mapped to pages by page title, then [checked by me against the pages].
 
 ## Deploying
 

@@ -13,12 +13,11 @@ from .config import settings
 @lru_cache(maxsize=1)
 def _chat_client() -> OpenAI:
     # api_key / base_url of None make the SDK fall back to OPENAI_API_KEY / OPENAI_BASE_URL.
-    return OpenAI(api_key=settings.chat_api_key, base_url=settings.chat_base_url)
-
+    return OpenAI(api_key=settings.chat_api_key, base_url=settings.chat_base_url, max_retries=8)
 
 @lru_cache(maxsize=1)
 def _embed_client() -> OpenAI:
-    return OpenAI(api_key=settings.embed_api_key, base_url=settings.embed_base_url)
+    return OpenAI(api_key=settings.embed_api_key, base_url=settings.embed_base_url, max_retries=8)
 
 
 def embed(texts: list[str]) -> list[list[float]]:

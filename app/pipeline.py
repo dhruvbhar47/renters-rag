@@ -16,7 +16,7 @@ def get_reranker():
     return make_cross_encoder_reranker(settings.reranker_model)
 
 
-def run_rag(question: str, store, *, mode: str = "hybrid") -> dict:
+def run_rag(question: str, store, *, mode: str = "vector") -> dict:
     result = retrieve(
         question,
         store,
