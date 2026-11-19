@@ -1,0 +1,2 @@
+# Optional: cross-encoder reranker (large download). Install with: pip install -r requirements-rerank.txt
+sentence-transformers

@@ -1,0 +1,7 @@
+# gov.uk pages to ingest, one path per line. Lines starting with # are ignored.
+# Pages that don't exist are skipped with a warning. Check each path opens on gov.uk,
+# then add more guides on the topics you want the assistant to cover.
+/private-renting
+/tenancy-deposit-protection
+/deposit-protection-schemes-and-landlords
+/evicting-tenants

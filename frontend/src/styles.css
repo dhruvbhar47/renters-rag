@@ -1,0 +1,64 @@
+:root {
+  --paper: #f2f5f4;
+  --surface: #ffffff;
+  --ink: #18242b;
+  --muted: #55656d;
+  --line: #d3dcdf;
+  --link: #1f4e79;
+  --mark: #ffdd00; /* the yellow gov.uk uses for focus, reused to link answer to source */
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.55; }
+
+.page { max-width: 700px; margin: 0 auto; padding: 48px 20px 64px; }
+
+h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.12; margin: 0 0 14px; letter-spacing: -0.01em; }
+h2 { font-size: 1rem; margin: 0 0 8px; }
+.lede { font-family: var(--serif); font-size: 1.15rem; color: var(--muted); margin: 0 0 32px; max-width: 60ch; }
+
+form { display: grid; gap: 8px; }
+label { font-weight: 600; font-size: 0.95rem; }
+textarea {
+  width: 100%; padding: 12px 14px; font: inherit; color: inherit; resize: vertical;
+  background: var(--surface); border: 2px solid var(--ink); border-radius: 2px;
+}
+button[type="submit"] {
+  justify-self: start; padding: 10px 22px; font: inherit; font-weight: 600; cursor: pointer;
+  background: var(--ink); color: #fff; border: 2px solid var(--ink); border-radius: 2px;
+}
+button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; box-shadow: 0 0 0 5px var(--ink); }
+
+.examples { margin-top: 32px; }
+.examples ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+button.link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-align: left; text-decoration: underline; cursor: pointer; }
+
+.error { margin-top: 24px; padding: 12px 14px; border-left: 4px solid #b3261e; background: #fbeceb; }
+
+.result { margin-top: 32px; }
+.answer { font-family: var(--serif); font-size: 1.25rem; line-height: 1.6; }
+.answer p { margin: 0 0 12px; }
+.answer.is-refusal { padding: 14px 16px; background: var(--surface); border-left: 4px solid var(--muted); font-size: 1.1rem; }
+
+.cite {
+  display: inline-block; min-width: 1.35em; margin: 0 2px; padding: 0 4px; text-align: center; text-decoration: none;
+  font: 600 0.72em/1.5 var(--sans); color: var(--ink); vertical-align: super;
+  background: var(--surface); border: 1px solid var(--ink); border-radius: 2px;
+}
+.cite.is-active, .cite:hover { background: var(--mark); }
+
+.sources { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; }
+.sources li { display: grid; grid-template-columns: 2rem 1fr; gap: 12px; padding: 14px; background: var(--surface); border: 1px solid var(--line); }
+.sources li.is-active { border-color: var(--ink); box-shadow: inset 4px 0 0 var(--mark); }
+.sources .n { font-weight: 600; font-size: 0.9rem; width: 1.75rem; height: 1.75rem; display: grid; place-items: center; border: 1px solid var(--ink); }
+.sources a { color: var(--link); font-weight: 600; }
+.sources blockquote { margin: 8px 0 0; padding: 0; font-size: 0.92rem; color: var(--muted); }
+.meta { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); max-width: 62ch; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
